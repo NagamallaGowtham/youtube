@@ -138,7 +138,7 @@ export const sidebarItemsShort = {
       "id": "subscriptions",
       "label": "Subscriptions",
       "icon": subscriptions,
-      "route": "/feed/subscriptions",
+      "route": "/subscriptions",
       "isActive": false,
       "tooltip": "View Subscriptions",
       "meta": {

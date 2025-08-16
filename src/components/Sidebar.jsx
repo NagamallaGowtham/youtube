@@ -1,6 +1,7 @@
 import React from 'react'
 import { sidebarItems, sidebarItemsShort } from '../utils/sidebar'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const Sidebar = () => {
     const menu = useSelector(store => store.menu.toggleMenu)
@@ -22,9 +23,11 @@ const Sidebar = () => {
                 <aside className='max-w-full w-[100px]'>
                     <ul>
                         {sidebarItemsShort?.sidebar?.map(item => (
-                            <li key={item.id} className='flex flex-col items-center gap-1 p-3 mx-2.5 rounded-2xl hover:bg-[#00000009] cursor-pointer'>
-                                <img src={item.icon} alt="" />
-                                <span className='text-[12px]'>{item.label}</span>
+                            <li key={item.id} className='p-3 mx-2.5 rounded-2xl hover:bg-[#00000009] cursor-pointer'>
+                                <Link to={item.route} className='flex flex-col items-center gap-1'>
+                                    <img src={item.icon} alt="" />
+                                    <span className='text-[12px]'>{item.label}</span>
+                                </Link>
                             </li>
                         ))}
                     </ul>

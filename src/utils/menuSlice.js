@@ -6,8 +6,8 @@ const menuSlice = createSlice({
         toggleMenu: false,
     },
     reducers: {
-        addtoggleMenu: (state) => {
-            state.toggleMenu = !state.toggleMenu
+        addtoggleMenu: (state, action) => {
+            state.toggleMenu = action.payload ? action.payload : !state.toggleMenu
         }
     }
 })

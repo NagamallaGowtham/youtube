@@ -4,6 +4,8 @@ import Body from './components/Body'
 import Header from './components/Header'
 import MainContainer from './components/MainContainer'
 import Watch from './components/Watch'
+import Shorts from './components/Shorts'
+import Subscriptions from './components/Subscriptions'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import appStore from './utils/appStore'
 
@@ -31,6 +33,14 @@ const appRouter = createBrowserRouter([
         {
           path: "/watch",
           element: <Watch />
+        },
+        {
+          path: "/shorts",
+          element: <Shorts />
+        },
+        {
+          path: "/subscriptions",
+          element: <Subscriptions />
         }
       ]
     }
