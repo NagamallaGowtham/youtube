@@ -1,0 +1,1 @@
+export const filterOptions = ["All", "Music", "Telugu cinema", "Mixes", "News", "Trailers", "Jabardasth", "Rajinikanth", "Anirudh Ravichander", "Live", "Mantras", "Alogorithms", "Computer Programming", "Asain music", "Presentations", "Courses", "Recently uploaded", "Watched", "New to you"];
