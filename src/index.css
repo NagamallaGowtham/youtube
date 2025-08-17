@@ -1,3 +1,21 @@
 .hide-scroll::-webkit-scrollbar {
     display: none;
 }
+
+.each-commnent .user-img {
+    margin-top: 4px;
+}
+
+.reply-comment-section {
+    .user-img {
+        width: 24px;
+        height: 24px;
+        margin-top: 6px;
+    }
+    .each-commnent {
+        margin-bottom: 8px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

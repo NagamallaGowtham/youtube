@@ -1,12 +1,17 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import useFormatViewCount from '../hooks/useFormatViewCount'
 import useGetRelativeTime from '../hooks/useGetRelativeTime'
 import { YOUTUBE_API_KEY } from '../utils/constants'
-import { addVideoComments } from '../utils/commentsSlice'
+import { addVideoComments, removeVideoComments } from '../utils/commentsSlice'
 import CommentSection from './CommentSection'
+import CommentSectionShimmer from './CommentSectionShimmer'
 
 const WatchVideo = ({video, videoId}) => {
+    const observer = useRef();
+    const [nextPageToken, setNextPageToken] = useState("")
+    const [isFetching, setIsFetching] = useState(false)
+
     const {contentDetails, snippet, statistics, id} = video
     const {duration} = contentDetails
     const {title, description, channelTitle, publishedAt, channelId} = snippet
@@ -20,16 +25,43 @@ const WatchVideo = ({video, videoId}) => {
     const publisTime = useGetRelativeTime(publishedAt)
 
     const fetchCommentThreads = async () => {
-        const data = await fetch("https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&videoId=Ks-_Mh1QhMc&key=" + YOUTUBE_API_KEY);
+        if (isFetching) return
+
+        setIsFetching(true);
+
+        const data = await fetch(`https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&videoId=${id}&key=${YOUTUBE_API_KEY}&maxResults=20${nextPageToken ? `&pageToken=${nextPageToken}` : ""}`);
         const json = await data.json()
 
-        console.log(json)
         dispatch(addVideoComments(json.items));
+        if (json.nextPageToken) {
+            setNextPageToken(json.nextPageToken);
+        }
+        setIsFetching(false);
     }
 
     useEffect(() => {
         fetchCommentThreads();
-    }, [])
+
+        return () => {
+            dispatch(removeVideoComments());
+        };
+    }, []);
+
+    useEffect(() => {
+        if (isFetching) return;
+        if (observer.current) observer.current.disconnect();
+
+        observer.current = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting && nextPageToken) {
+                fetchCommentThreads();
+            }
+        });
+
+        const sentinel = document.querySelector("#sentinel");
+        if (sentinel) observer.current.observe(sentinel)
+
+        return () => observer.current?.disconnect();
+    }, [nextPageToken, isFetching]);
   return (
     <>
         <div className='w-[60vw] max-w-full'>
@@ -59,6 +91,13 @@ const WatchVideo = ({video, videoId}) => {
                 </div>
                 <h2 className='font-bold text-[20px] mt-3'>{commentCount} Comments</h2>
                 <CommentSection />
+                {isFetching && (
+                    <div>
+                        <CommentSectionShimmer />
+                        <CommentSectionShimmer />
+                        <CommentSectionShimmer />
+                    </div>
+                )}
             </div>
         </div>
     </>

@@ -25,8 +25,6 @@ const VideoCard = ({video}) => {
         const data = await fetch("https://www.googleapis.com/youtube/v3/channels?part=snippet&id="+channelId+"&key=" + YOUTUBE_API_KEY);
         const json = await data.json();
 
-        console.log(json)
-
         // setChannelImg(json?.items[0]?.snippet?.thumbnails?.default?.url)
         dispatch(addChannelThumbail({[id]: json?.items[0]?.snippet?.thumbnails?.default?.url}))
     }

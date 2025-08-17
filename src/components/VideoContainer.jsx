@@ -9,8 +9,6 @@ const VideoContainer = () => {
     const dispatch = useDispatch()
     const allVideos = useSelector(store => store?.video?.videos)
 
-    console.log(allVideos)
-
     const fetchVideos = async () => {
         const data = await fetch("https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=Ks-_Mh1QhMc%2Cc0KYU2j0TM4%2CeIho2S0ZahI&key=" + YOUTUBE_API_KEY);
         const json = await data.json();

@@ -13,7 +13,7 @@ const Header = () => {
         dispatch(addtoggleMenu())
     }
   return (
-    <header className='min-h-[56px] px-4 flex items-center justify-between'>
+    <header className='min-h-[56px] px-4 flex items-center justify-between bg-white sticky top-0 z-30 opacity-[0.97]'>
         <div className="logo-menu flex items-center gap-4">
             <div className="menu cursor-pointer hover:bg-[#00000019] w-[40px] h-[40px] flex items-center justify-center rounded-full" onClick={handleMenuToggle}>
                 <img src={menu} alt='menu' />

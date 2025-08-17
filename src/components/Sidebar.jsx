@@ -9,7 +9,7 @@ const Sidebar = () => {
     <div>
         {
             !menu ? (
-                <aside className='max-w-full w-[240px]'>
+                <aside className='max-w-full w-[240px] sticky top-[56px] bg-white'>
                     <ul>
                         {sidebarItems?.sidebar?.map(item => (
                             <li key={item.id} className='flex items-center gap-2.5 p-3 mx-2.5 rounded-2xl hover:bg-[#00000009] cursor-pointer'>
@@ -20,7 +20,7 @@ const Sidebar = () => {
                     </ul>
                 </aside>                        
             ) : (
-                <aside className='max-w-full w-[100px]'>
+                <aside className='max-w-full w-[100px] sticky top-[56px] bg-white'>
                     <ul>
                         {sidebarItemsShort?.sidebar?.map(item => (
                             <li key={item.id} className='p-3 mx-2.5 rounded-2xl hover:bg-[#00000009] cursor-pointer'>
