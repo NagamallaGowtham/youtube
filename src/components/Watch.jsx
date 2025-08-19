@@ -12,9 +12,15 @@ const Watch = () => {
 
   const details = filterDetails?.filter(detail => detail.id === id.get("v"));
 
-  dispatch(addtoggleMenu(true))
-
+  
   useEffect(() => {
+    dispatch(addtoggleMenu(true))
+    
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
     return () => dispatch(addtoggleMenu(false))
   }, [])
   return (

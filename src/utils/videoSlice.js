@@ -3,19 +3,23 @@ import { createSlice } from "@reduxjs/toolkit";
 const videoSlice = createSlice({
     name: "video",
     initialState: {
-        videos: null,
-        channelThumbnail: {}
+        videos: [],
+        channelThumbnail: {},
+        nextToken: ""
     },
     reducers: {
         addVideos: (state, action) => {
-            state.videos = action.payload
+            state.videos = [...state.videos, ...action.payload]
         },
         addChannelThumbail: (state, action) => {
             state.channelThumbnail = {...state.channelThumbnail, ...action.payload}
+        },
+        addNextToken: (state, action) => {
+            state.nextToken = action.payload
         }
     }
 })
 
-export const {addVideos, addChannelThumbail} = videoSlice.actions
+export const {addVideos, addChannelThumbail, addNextToken} = videoSlice.actions
 
 export default videoSlice.reducer
